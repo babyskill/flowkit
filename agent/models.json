@@ -27,6 +27,20 @@
         "VIDEO_ASPECT_RATIO_LANDSCAPE": "veo_3_1_r2v_fast",
         "VIDEO_ASPECT_RATIO_PORTRAIT": "veo_3_1_r2v_fast_portrait"
       }
+    },
+    "PAYGATE_TIER_NOT_PAID": {
+      "frame_2_video": {
+        "VIDEO_ASPECT_RATIO_LANDSCAPE": "veo_3_1_i2v_s_fast",
+        "VIDEO_ASPECT_RATIO_PORTRAIT": "veo_3_1_i2v_s_fast_portrait"
+      },
+      "start_end_frame_2_video": {
+        "VIDEO_ASPECT_RATIO_LANDSCAPE": "veo_3_1_i2v_s_fast_fl",
+        "VIDEO_ASPECT_RATIO_PORTRAIT": "veo_3_1_i2v_s_fast_portrait_fl"
+      },
+      "reference_frame_2_video": {
+        "VIDEO_ASPECT_RATIO_LANDSCAPE": "veo_3_1_r2v_fast",
+        "VIDEO_ASPECT_RATIO_PORTRAIT": "veo_3_1_r2v_fast_portrait"
+      }
     }
   },
   "upscale_models": {

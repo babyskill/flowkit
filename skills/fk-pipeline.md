@@ -18,6 +18,20 @@ Examples:
 - `/fk-pipeline --upscale --tts --download --notify` — full run with all options
 - `/fk-pipeline <project_id> HORIZONTAL --upscale --download` — explicit project + orientation
 
+## Quick Alternative (CLI/MCP)
+
+For single-scene generation without manual curl, use:
+- CLI: `python scripts/flowkit_cli.py create-image ...` or `create-video ...`
+- MCP tools: `create_image(...)`, `create_video(...)`
+
+These wrappers expose full scene/request params (chain/source/request_type/orientation/source_media_id, etc.)
+and auto-download outputs into:
+
+```text
+output/<project_id>/images
+output/<project_id>/videos
+```
+
 ---
 
 ## When to Use

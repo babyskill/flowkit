@@ -3,9 +3,16 @@
  * Injects injected.js into MAIN world to access window.grecaptcha
  */
 (function () {
+  if (window.__flowkitInjectedScriptLoaded) return;
+  window.__flowkitInjectedScriptLoaded = true;
+
+  const existing = document.getElementById('flowkit-injected-script');
+  if (existing) return;
+
   const s = document.createElement('script');
+  s.id = 'flowkit-injected-script';
   s.src = chrome.runtime.getURL('injected.js');
-  s.onload = () => s.remove();
+  // Keep node in DOM so subsequent injections can short-circuit by id.
   (document.head || document.documentElement).appendChild(s);
 })();
 

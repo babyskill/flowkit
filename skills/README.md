@@ -54,6 +54,65 @@ python setup.py clean     # Remove generated configs
 
 ---
 
+## CLI + MCP (New)
+
+You can now run generation without manual `curl` loops.
+
+### CLI
+
+```bash
+# Image only
+python scripts/flowkit_cli.py create-image \
+  --project-id <PID> \
+  --title "My Scene" \
+  --prompt "..." \
+  --character-name "..." \
+  --character-description "..." \
+  --reference-image-url "http://127.0.0.1:8877/ref.png" \
+  --image-request-type GENERATE_IMAGE \
+  --image-orientation VERTICAL
+
+# Image + Video
+python scripts/flowkit_cli.py create-video \
+  --project-id <PID> \
+  --title "My Video" \
+  --prompt "..." \
+  --video-prompt "0-3s... 3-6s... 6-8s..." \
+  --character-name "..." \
+  --character-description "..." \
+  --reference-image-url "http://127.0.0.1:8877/ref.png" \
+  --image-request-type GENERATE_IMAGE \
+  --video-request-type GENERATE_VIDEO \
+  --image-orientation VERTICAL \
+  --video-orientation VERTICAL
+```
+
+Supported advanced params (CLI + MCP):
+- Scene config: `chain_type`, `source`, `parent_scene_id`, `display_order`, `transition_prompt`, `character_names`, `image_prompt`, `video_prompt`
+- Image request: `GENERATE_IMAGE | REGENERATE_IMAGE | EDIT_IMAGE` + `image_source_media_id`
+- Video request: `GENERATE_VIDEO | REGENERATE_VIDEO | GENERATE_VIDEO_REFS | UPSCALE_VIDEO`
+- Character config: `entity_type`, `voice_description`, `character_image_prompt`, `link_to_project`
+- Runtime control: `generate_reference`, `generate_video`, `poll_interval_s`, `timeout_s`
+
+### MCP
+
+MCP server now exposes both tools:
+- `create_image(...)`
+- `create_video(...)`
+
+Both return remote URLs and local download paths.
+
+### Auto download behavior
+
+After generation completes, files are auto-downloaded by `project_id`:
+
+```text
+output/<project_id>/images
+output/<project_id>/videos
+```
+
+---
+
 ## Full Example: "Luna the Space Cat" (3 scenes, vertical)
 
 This walkthrough shows exactly how an AI agent uses skills to go from idea to final video.

@@ -143,6 +143,52 @@ curl http://127.0.0.1:8100/health
 # {"status":"ok","extension_connected":true}
 ```
 
+### CLI wrapper (no manual curl)
+
+Use the built-in CLI helper to run full flows with explicit image/video request params.
+
+```bash
+python scripts/flowkit_cli.py create-video \
+  --project-id <PROJECT_ID> \
+  --title "Mystic Forest Spirit" \
+  --character-name "Forest Spirit" \
+  --character-description "Cute forest spirit with leaf antlers and emerald eyes." \
+  --reference-image-url "http://127.0.0.1:8877/my_ref.png" \
+  --prompt "Forest spirit resting on an ancient stone pedestal in a mystical forest." \
+  --video-prompt "0-3s: wide calm shot. 3-6s: slow push-in, fireflies. 6-8s: medium hold, gentle sway." \
+  --image-request-type GENERATE_IMAGE \
+  --video-request-type GENERATE_VIDEO \
+  --image-orientation VERTICAL \
+  --video-orientation VERTICAL \
+  --chain-type ROOT
+```
+
+For image-only workflows:
+
+```bash
+python scripts/flowkit_cli.py create-image ... --image-request-type REGENERATE_IMAGE
+```
+
+The commands print JSON with created IDs, request IDs, output URLs, and downloaded local paths.
+Generated files are auto-downloaded to:
+
+```text
+output/<project_id>/images
+output/<project_id>/videos
+```
+
+### MCP server wrapper
+
+If you want to call FlowKit from MCP-enabled assistants:
+
+```bash
+pip install -r requirements.txt
+python scripts/flowkit_mcp_server.py
+```
+
+This exposes a `create_video` MCP tool with the same parameters as the CLI workflow.
+It also exposes `create_image` with full image/scene params.
+
 ## End-to-End Example: "Pippip the Fish Merchant"
 
 A chubby cat sells fish at a market. 3 scenes, vertical, Pixar 3D style.

@@ -201,6 +201,81 @@ Randomized browser fingerprint headers required:
 
 ---
 
+## Storyboard-First Pipeline (Source-Synced) + Cheaper Video Profiles
+
+### Goals
+
+- Reduce credit burn by creating **images first** and only generating videos after user approves a storyboard.
+- Keep projects **source-synced**: storyboard explicitly marks which shots come from existing footage vs AI-generated inserts.
+- Make model cost controllable: default to cheaper **fast/lite** for previews, allow explicit override for final renders.
+
+### Constraints
+
+- The user must be able to review a storyboard visually before any video generation begins.
+- Storyboard must record per-shot provenance:
+  - `SOURCE` (extracted from local mp4)
+  - `AI_IMAGE` (generated/edited image)
+  - `TRANSITION` (start/end frame continuity)
+- Video generation must be blocked unless storyboard is approved (gate).
+
+### Deliverables
+
+1) Storyboard artifacts under `output/<slug>/storyboard/`:
+- `storyboard.json` (source of truth)
+- `preview.html` (visual review)
+- `images/` (poster frames for each shot)
+
+2) CLI commands (non-interactive, reproducible):
+- `storyboard-create`:
+  - Extract keyframes from `source/*.mp4` (intro/hook/work/outro)
+  - Optionally generate AI images for curiosity inserts (HUD scan, macro hydraulic)
+  - Upload all storyboard images to Flow to get stable UUID `media_id`
+  - Write `storyboard.json` + `preview.html`
+- `storyboard-approve`:
+  - Mark shots approved (`--all` or `--ids`)
+- `storyboard-render`:
+  - Create scenes/transitions from approved shots
+  - Generate videos using a configurable model key
+  - Download + merge into final mp4
+
+3) Model cost controls:
+- Add optional `video_model_key` override to `/api/flow/generate-video` and `/api/flow/generate-video-refs`.
+- Expose CLI flags:
+  - `--video-model-key <string>` (explicit model choice)
+  - Default uses current `models.json` mapping (fast-tier keys)
+
+### Execution Plan
+
+Phase A — Model selection infrastructure
+- Add `video_model_key` override in:
+  - `agent/services/flow_client.py`
+  - `agent/api/flow.py`
+- Add CLI plumb-through for direct generation.
+
+Phase B — Storyboard gate (images first)
+- Implement storyboard builder:
+  - Frame extraction from local mp4 via ffmpeg
+  - AI image generation via `/api/flow/generate-image` (then re-upload to obtain UUID media_id)
+  - HTML preview renderer + JSON schema
+- Implement approval gate:
+  - Rendering command refuses to run unless approved shots exist
+
+Phase C — Render from storyboard (videos)
+- For each approved shot:
+  - Scene: set start `image_media_id` from storyboard
+  - Transition: set `end_scene_media_id` for continuity
+  - Generate video using selected `video_model_key` or default mapping
+- Merge final output to `output/<slug>/<slug>_final.mp4`
+
+### Acceptance Criteria
+
+- Running `storyboard-create` produces a viewable `preview.html` without generating any videos.
+- `storyboard-render` refuses to run until storyboard is approved.
+- `storyboard-render` can render using a cheaper model key override (fast/lite), reducing credit burn for iteration.
+- Output video is reproducible from `storyboard.json` (no hidden state).
+
+---
+
 ## Components to Build
 
 ### 1. Extension (Chrome MV3) — `extension/`

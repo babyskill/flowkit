@@ -23,6 +23,7 @@ class GenerateVideoRequest(BaseModel):
     aspect_ratio: str = "VIDEO_ASPECT_RATIO_PORTRAIT"
     end_image_media_id: Optional[str] = None
     user_paygate_tier: str = "PAYGATE_TIER_ONE"
+    video_model_key: Optional[str] = None
 
 
 class GenerateVideoRefsRequest(BaseModel):
@@ -32,6 +33,7 @@ class GenerateVideoRefsRequest(BaseModel):
     scene_id: str
     aspect_ratio: str = "VIDEO_ASPECT_RATIO_PORTRAIT"
     user_paygate_tier: str = "PAYGATE_TIER_ONE"
+    video_model_key: Optional[str] = None
 
 
 class UpscaleVideoRequest(BaseModel):
@@ -111,7 +113,7 @@ async def generate_video_refs(body: GenerateVideoRefsRequest):
     client = get_flow_client()
     if not client.connected:
         raise HTTPException(503, "Extension not connected")
-    result = await client.generate_video_from_references(**body.model_dump())
+    result = await client.generate_video_from_references(**body.model_dump(exclude_none=True))
     if result.get("error") or (isinstance(result.get("status"), int) and result["status"] >= 400):
         raise HTTPException(result.get("status", 502), result.get("error", result.get("data")))
     return result.get("data", result)

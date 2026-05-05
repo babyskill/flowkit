@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Liệu Hướng Dẫn AWKit</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --text-color: #cbd5e1;
+            --heading-color: #f8fafc;
+            --accent-color: #38bdf8;
+            --code-bg: #0b1120;
+            --border-color: #334155;
+            --success-color: #34d399;
+            --warning-color: #fbbf24;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--heading-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        header p {
+            font-size: 1.25rem;
+            color: #94a3b8;
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #e2e8f0;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .command-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .command-table th, .command-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .command-table th {
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        .command-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge {
+            background-color: var(--accent-color);
+            color: #0f172a;
+            padding: 0.1rem 0.4rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+        
+        .badge.warning {
+            background-color: var(--warning-color);
+        }
+        
+        .badge.success {
+            background-color: var(--success-color);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tài Liệu Hướng Dẫn AWKit</h1>
+            <p>Chào mừng bạn đến với dự án Antigravity đã được khởi tạo!</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <h2>🚀 Bắt Đầu (Getting Started)</h2>
+                <p><strong>AWKit</strong> (Antigravity Kit) là công cụ điều phối dự án, tạo code, và quản lý AI agent chuyên sâu. Dự án của bạn đã được khởi tạo với các file quan trọng sau đây:</p>
+                <ul>
+                    <li><code>.project-identity</code>: Chứa cấu hình dự án (Tên, Tech Stack, Bundle ID). Hãy chỉnh sửa file này để thay đổi định nghĩa gốc của dự án.</li>
+                    <li><code>CODEBASE.md</code>: Tài liệu sống về kiến trúc của bộ code. Mở chat AI và gõ <code>/codebase-sync</code> để AI tự động đánh giá và cập nhật.</li>
+                    <li><code>AGENTS.md</code> & <code>CLAUDE.md</code>: Các tệp định tuyến (Router files) hỗ trợ AI IDE (như Cline, Roo, Cursor) nhận diện bộ quy tắc tập trung từ hệ thống.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>⚡ Cách Sử Dụng AWKit</h2>
+                <p>AWKit hoạt động theo nguyên tắc <strong>"nói gì làm nấy"</strong>. Bạn chỉ cần mô tả yêu cầu bằng ngôn ngữ tự nhiên trong cửa sổ Chat, AI sẽ tự động kích hoạt đúng quy trình (7-Gate) mà không cần gõ lệnh thủ công.</p>
+                
+                <h3>🤖 AI Tự Động Xử Lý (Không cần gõ lệnh)</h3>
+                <p>Các quy trình sau được hệ thống Skill tự động nhận diện và kích hoạt khi bạn chat:</p>
+                <ul>
+                    <li><strong>Brainstorm:</strong> "Tôi muốn làm tính năng X" → AI tự chạy Gate 1 (Spec)</li>
+                    <li><strong>Thiết kế:</strong> "Thiết kế kiến trúc cho module Auth" → AI tự chạy Gate 2 (Architecture)</li>
+                    <li><strong>Code:</strong> "Code màn hình đăng nhập" → AI tự chạy Gate 4 (Execution) với 3-Phase</li>
+                    <li><strong>Debug:</strong> "App crash khi bấm nút Save" → AI tự kích hoạt systematic debugging</li>
+                    <li><strong>Refactor:</strong> "Đổi tên class UserManager" → AI dùng GitNexus rename an toàn</li>
+                </ul>
+
+                <h3>⌨️ Quick Shortcuts (Phím tắt hữu ích)</h3>
+                <p>Một số lệnh ngắn vẫn hữu ích khi bạn cần truy cập nhanh:</p>
+                <table class="command-table">
+                    <thead>
+                        <tr>
+                            <th>Lệnh</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>/next</code></td>
+                            <td>Hỏi nhanh "Tôi nên làm gì tiếp?" — AI đọc Symphony và đề xuất bước tiếp theo.</td>
+                        </tr>
+                        <tr>
+                            <td><code>/recap</code></td>
+                            <td>Tổng hợp tình trạng dự án: tiến độ, task đang chạy, vấn đề tồn đọng.</td>
+                        </tr>
+                        <tr>
+                            <td><code>/debug</code></td>
+                            <td>Kích hoạt chế độ sửa lỗi hệ thống (Tìm nguyên nhân → Phân tích → Sửa → Xác nhận).</td>
+                        </tr>
+                        <tr>
+                            <td><code>/visual-debug</code></td>
+                            <td>Phân tích ảnh chụp màn hình để xác định và sửa lỗi giao diện hoặc hiển thị.</td>
+                        </tr>
+                        <tr>
+                            <td><code>/codebase-sync</code></td>
+                            <td>Cập nhật lại tài liệu <code>CODEBASE.md</code> cho khớp với code thực tế.</td>
+                        </tr>
+                        <tr>
+                            <td><code>/smart-git-ops</code></td>
+                            <td>Tự động hóa git workflow hoàn chỉnh (audit → commit → push → telegram report).</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>📖 Workflow Chuyên Biệt (Step-by-step)</h3>
+
+
+                <h4>🚀 DevOps & Git</h4>
+                <table class="command-table">
+                    <tbody>
+                        <tr>
+                            <td><code>/deploy</code></td>
+                            <td>Quy trình deploy lên Production (kiểm tra trước, build, push).</td>
+                        </tr>
+                        <tr>
+                            <td><code>/hotfix</code></td>
+                            <td>Sửa lỗi khẩn cấp Production — quy trình nhanh, có rollback.</td>
+                        </tr>
+                        <tr>
+                            <td><code>/rollback</code></td>
+                            <td>Quay lại phiên bản cũ an toàn.</td>
+                        </tr>
+                        <tr>
+                            <td><code>/git-rebase-flow</code></td>
+                            <td>Quy trình chuẩn Feature Branch → Rebase → PR.</td>
+                        </tr>
+                        <tr>
+                            <td><code>/migration</code></td>
+                            <td>Nâng cấp SDK & Dependencies có checklist.</td>
+                        </tr>
+                        <tr>
+                            <td><code>/release-notes</code></td>
+                            <td>Tạo Release Notes tự động từ git log.</td>
+                        </tr>
+                        <tr>
+                            <td><code>/cloudflare-tunnel</code></td>
+                            <td>Quản lý Cloudflare Tunnel cho domain/subdomain.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>🧪 Testing & Multi-Agent</h4>
+                <table class="command-table">
+                    <tbody>
+                        <tr>
+                            <td><code>/maestro-qa-workflow</code></td>
+                            <td>QA Testing chuyên nghiệp với Maestro (UI automation).</td>
+                        </tr>
+                        <tr>
+                            <td><code>/conductor</code></td>
+                            <td>Gọi Gemini CLI phân tích project-wide — khi cần tầm nhìn rộng hơn 1 model.</td>
+                        </tr>
+                        <tr>
+                            <td><code>/conductor-codex</code></td>
+                            <td>Gọi Codex CLI rà soát code, review logic — second opinion từ GPT 5.4.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>🧠 GitNexus - Trí Tuệ Mã Nguồn</h2>
+                <p>AWKit tích hợp <strong>GitNexus</strong> để hiểu toàn bộ kiến trúc, rà soát mô hình tham chiếu (blast radiuses), và vẽ luồng hoạt động mã nguồn theo dạng đồ thị. </p>
+                
+                <h3>Cách dùng CLI (Terminal)</h3>
+                <pre><code># Quét và đánh index lại dự án (Nên chạy sau mỗi lần commit lớn)
+npx gitnexus analyze
+
+# Quét đầy đủ bao gồm phân tích Embedding
+npx gitnexus analyze --embeddings</code></pre>
+                
+                <h3>Sử dụng với AI (MCP Tools)</h3>
+                <p>Mọi AI Agent đi kèm AWKit đều có nhiệm vụ dùng các GitNexus Tool để tính toán rủi ro:</p>
+                <ul>
+                    <li><code>gitnexus_impact</code>: Kiểm tra "blast radius" – Phải báo cáo xem có file nào hỏng không trước khi thay đổi (Refactoring).</li>
+                    <li><code>gitnexus_query</code>: Để lục tìm concept (e.g. "Tìm thư mục chứa Auth Flow").</li>
+                    <li><code>gitnexus_detect_changes</code>: Rà soát xem git local thay đổi những gì, có rủi ro nào ở scope khác không.</li>
+                    <li><code>gitnexus_rename</code>: Đổi tên một class hoặc biến an toàn thông qua Knowledge Graph thay vì chỉ Find and Replace.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>📋 Symphony - Quản Lý Tiến Độ Tác Vụ</h2>
+                <p>Symphony là trái tim của việc chia nhỏ và đánh dấu tiến độ công việc trong AWKit. Dữ liệu được lưu trữ ở <strong>cơ sở dữ liệu toàn cục</strong> (<code>~/.gemini/antigravity/symphony/</code>), không nằm trong thư mục dự án. Thư mục <code>.symphony/</code> trong project chỉ đóng vai trò đánh dấu (marker) để AI nhận diện phạm vi dự án.</p>
+                
+                <h3>Cài đặt Symphony CLI (chỉ cần 1 lần):</h3>
+                <pre><code># Cài đặt toàn cục
+npm install -g @leejungkiin/awkit-symphony
+
+# Kiểm tra đã cài xong
+symphony status</code></pre>
+                
+                <h3>Các thao tác CLI hữu ích:</h3>
+                <pre><code># Hệ thống quản lý
+symphony status                     # Xem thông tin cấu hình và trạng thái server
+symphony reset                      # Xoá database toàn cục (CHỈ KHI BỊ LỖI DATABASE)
+
+# Thao tác với Task
+symphony task list                  # Xem danh sách tất cả các task hiện tại
+symphony task add "Làm màn hình Đăng Nhập"
+symphony task claim &lt;id&gt;            # Bắt đầu làm task
+symphony task complete &lt;id&gt;         # Đánh dấu hoàn thành
+symphony task block &lt;id&gt; "Lý do"   # Đánh dấu bị chặn vì lỗi</code></pre>
+                <p>Hệ thống AI AWKit sẽ <strong>luôn tự động</strong> thực hiện các hành động trên cho bạn trong quá trình thực thi hệ thống 7-Gate. Bạn không cần gõ lệnh thủ công trừ khi muốn kiểm tra tiến độ.</p>
+            </div>
+
+            <div class="card">
+                <h2>🔌 Tích Hợp Dự Án (Trello & Telegram & Neural Memory)</h2>
+                
+                <h3>1. Trello Sync</h3>
+                <p>Đồng bộ công việc của bạn (hoặc AI tạo ra) thẳng lên một Card Trello dưới dạng Checklists và ghi chú (Comments). Giúp Quản lý (PM) có thể theo dõi tiến độ dễ dàng.</p>
+                <pre><code># Cài đặt ban đầu (Nhập API/Token)
+awkit trello setup
+
+# Câu lệnh hệ thống dành cho Trello (Hoặc AI tự chạy)
+awkit trello desc "Mô tả của dự án"
+awkit trello checklist "Tên Sprint/Phase"
+awkit trello item "Tên Task"
+awkit trello complete "Tên Task"
+awkit trello comment "Báo cáo nhanh cho PM..."</code></pre>
+
+                <h3>2. Telegram Notify</h3>
+                <p>Hỗ trợ gửi thông báo cho nhóm điều hành qua Box chat Telegram (Push, Lỗi, Hoàn thành CI/CD).</p>
+                <pre><code># Thiết lập Token Bot Telegram và lấy ID Box Chat
+awkit tg setup
+
+# Gửi tin nhắn test
+awkit tg send "Chào anh em, AWKit đã ready!"
+# Hoặc gửi kèm Topic
+awkit tg send --topic 1234 "App đã build xong nhé!"</code></pre>
+
+                <h3>3. Neural Memory</h3>
+                <p>Là bộ nhớ Graph "Contextual" lưu trữ các bài học (Edge Cases, Architecture Pattern) của từng Project dựa trên Project ID, đảm bảo AI không lặp lại lỗi cũ qua các session dài ngày. Hệ thống sẽ tự động sử dụng trong nền.</p>
+            </div>
+
+            <div class="card">
+                <h2>🤖 Hệ Thống 7 Cổng (7-Gate) Tự Động</h2>
+                <p>Bất cứ khi nào bạn nhờ AWKit làm một tác vụ có độ phức tạp cao, AI sẽ chạy theo quy trình vòng kín 7-Gate khắt khe này để kiểm soát chất lượng:</p>
+                <ol>
+                    <li><strong>Gate 1 (Spec):</strong> Thu thập yêu cầu, tạo file <code>BRIEF.md</code></li>
+                    <li><strong>Gate 1.5 (Module Spec):</strong> Viết sâu vào từng Flow người dùng và Rules validation trước khi code.</li>
+                    <li><strong>Gate 2 (Architecture):</strong> Thống nhất Database Schema, API Contract.</li>
+                    <li><strong>Gate 2.5 (Visual):</strong> Tạo mock-up UI với hệ thống tích hợp Pencil MCP hoặc ảnh chụp màn hình.</li>
+                    <li><strong>Gate 3 (Tasks):</strong> Xé rách dự án thành các thẻ Symphony Tickets.</li>
+                    <li><strong>Gate 4 (Execution):</strong> Thực thi theo 3-Phase (Code Kiến trúc chuẩn → Làm giao diện → Gắn Code Logic Data) với các bước <strong>Dừng User Test</strong>.</li>
+                    <li><strong>Gate 5 (Verification):</strong> Review code, test và dùng AI xác nhận Git Commit an toàn.</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h2>🧩 Chiến Lược Đa IDE & Đa AI Model</h2>
+                <p>AWKit được thiết kế để tận dụng <strong>sức mạnh của nhiều AI Model cùng lúc</strong>. Hệ thống gồm 3 Model chính, mỗi cái phục vụ một mục đích khác nhau, chia làm 2 kênh truy cập:</p>
+
+                <h3>Kênh 1: Antigravity (IDE tích hợp — VS Code / Cursor)</h3>
+                <p>Đây là kênh chính để code, debug, và điều phối dự án. Hoạt động qua Agent trong IDE.</p>
+                <table class="command-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Thế mạnh</th>
+                            <th>Khi nào dùng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Claude Opus 4.6</strong> <span class="badge">Mặc định</span></td>
+                            <td>Suy luận sâu, tuân thủ quy tắc tốt nhất, kiến trúc phức tạp</td>
+                            <td>Mọi task chính: code Feature, Debug logic phức tạp, Thiết kế kiến trúc, Gate 1–5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gemini 3.1 Pro</strong> <span class="badge success">Bổ trợ</span></td>
+                            <td>Context window cực lớn (2M tokens), xử lý nhanh, phân tích file dài</td>
+                            <td>Đọc/phân tích codebase lớn, Refactor đa file, Brainstorm ý tưởng, Review nhanh</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><em>💡 Mẹo: Chuyển đổi model trực tiếp trong Antigravity bằng nút chọn Model ở thanh chat. Dùng Opus cho task cần chính xác cao, dùng Gemini khi cần quét/phân tích khối lượng lớn.</em></p>
+
+                <h3>Kênh 2: Codex CLI / Extension (chạy nền song song)</h3>
+                <p><strong>Codex (GPT 5.4)</strong> hoạt động như một "trợ lý thứ hai" chạy song song, <strong>hoàn toàn READ-ONLY</strong>. Codex không chỉnh sửa code — nó chỉ đọc, phân tích, và xuất báo cáo.</p>
+                <table class="command-table">
+                    <thead>
+                        <tr>
+                            <th>Cách dùng</th>
+                            <th>Mô tả</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Codex CLI</strong></td>
+                            <td>Chạy trong Terminal: <code>codex</code> rồi nhập câu hỏi. Phù hợp để debug, review logic, và audit code.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VS Code Extension</strong></td>
+                            <td>Cài extension "Codex" trong VS Code để dùng trực tiếp trong IDE song song với Antigravity.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pre><code># Ví dụ dùng Codex CLI kiểm tra logic
+codex "Review function validateBloodPressure và tìm edge case bị bỏ sót"
+
+# Hoặc AWKit tự gọi Codex khi cần second opinion
+/conductor-codex "Rà soát toàn bộ authentication flow"</code></pre>
+
+                <h3>Chiến lược tối ưu khi dùng đa model:</h3>
+                <ol>
+                    <li><strong>Opus 4.6 dẫn đầu:</strong> Mọi task chính (code, debug, plan) đều chạy trên Opus. Đây là model có khả năng tuân thủ quy tắc AWKit và suy luận chuỗi tốt nhất.</li>
+                    <li><strong>Gemini 3.1 Pro mở rộng:</strong> Khi cần đọc file dài, phân tích codebase >1000 dòng, hoặc brainstorm nhanh — chuyển sang Gemini để tận dụng context window lớn và tốc độ.</li>
+                    <li><strong>Codex chạy song song:</strong> Mở terminal thứ 2, chạy <code>codex</code> để hỏi second opinion, review code đã viết, hoặc tìm bug mà model chính bỏ sót. Codex dùng quota riêng nên không ảnh hưởng Opus/Gemini.</li>
+                    <li><strong>Không trùng lặp:</strong> Chỉ 1 model chỉnh sửa file tại 1 thời điểm. Codex chỉ đọc và báo cáo, không ghi file.</li>
+                </ol>
+            </div>
+            
+        </main>
+
+        <footer>
+            <p>Generated by <strong>AWKit</strong> v12.3</p>
+            <p>Bản quyền © 2026. Nếu có vấn đề kỹ thuật, liên hệ email dự án: <a href="mailto:leejungkiin@gmail.com" style="color:var(--text-color);">leejungkiin@gmail.com</a></p>
+            <p><small>Vui lòng giữ tài liệu này như cuốn cẩm nang bỏ túi của bạn trong suốt dự án.</small></p>
+        </footer>
+    </div>
+</body>
+</html>

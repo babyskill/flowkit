@@ -8,6 +8,10 @@ __pycache__/
 output/
 youtube
 agent/active_project.json
+tests/
+.github/
+.pytest_cache/
+.claude/
 
 # Generated AI tool configs (run: python setup.py)
 .claude/commands/fk:*
@@ -15,3 +19,7 @@ agent/active_project.json
 AGENTS.md
 GEMINI.md
 .fk-setup.json
+log.txt
+tmp/
+.gitnexus/
+node_modules/
