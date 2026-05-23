@@ -208,6 +208,17 @@ def extract_operations(payload: dict) -> list[dict]:
     data = payload.get("data")
     if isinstance(data, dict) and isinstance(data.get("operations"), list):
         return data["operations"]
+    media = payload.get("media")
+    if isinstance(media, list) and media:
+        op_name = media[0].get("name") if isinstance(media[0], dict) else None
+        if op_name:
+            return [{"operation": {"name": op_name}, "status": "MEDIA_GENERATION_STATUS_PENDING"}]
+    if isinstance(data, dict):
+        media = data.get("media")
+        if isinstance(media, list) and media:
+            op_name = media[0].get("name") if isinstance(media[0], dict) else None
+            if op_name:
+                return [{"operation": {"name": op_name}, "status": "MEDIA_GENERATION_STATUS_PENDING"}]
     return []
 
 

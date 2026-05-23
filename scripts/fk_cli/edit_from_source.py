@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from agent.services.post_process import merge_videos
+from agent.services.post_process import add_corner_logo, merge_videos
 from flowkit_client import FlowkitError, wait_request
 
 from .common import (
@@ -262,6 +262,21 @@ def cmd_edit_from_source(args) -> int:
     ok = merge_videos(local_paths, str(final_path))
     if not ok:
         raise FlowkitError("Final merge failed (ffmpeg concat)")
+
+    if not args.no_watermark:
+        wm_path = out_dir / f"{slug}_final_watermarked.mp4"
+        ok_wm = add_corner_logo(
+            str(final_path),
+            str(wm_path),
+            logo_path=str(Path(args.logo_path).resolve()),
+            box_w=int(args.logo_w),
+            box_h=int(args.logo_h),
+            margin=int(args.logo_margin),
+        )
+        if not ok_wm:
+            raise FlowkitError("Watermark failed (ffmpeg overlay)")
+        final_path.unlink(missing_ok=True)
+        wm_path.replace(final_path)
 
     print(json.dumps({
         "project_id": pid,

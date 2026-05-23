@@ -13,7 +13,7 @@ API_PORT = int(os.environ.get("API_PORT", "8100"))
 
 # ─── WebSocket Server (extension connects here) ─────────────
 WS_HOST = os.environ.get("WS_HOST", "127.0.0.1")
-WS_PORT = int(os.environ.get("WS_PORT", "9222"))
+WS_PORT = int(os.environ.get("WS_PORT", "8101"))
 
 # ─── Google Flow API ────────────────────────────────────────
 GOOGLE_FLOW_API = "https://aisandbox-pa.googleapis.com"

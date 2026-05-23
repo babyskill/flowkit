@@ -1,8 +1,11 @@
 {
   "folders": [
     {
-      "path": "."
-    }
+      "path": ".",
+    },
+    {
+      "path": "/Users/trungkientn/Dev2/iOS/FitWitnessSimple",
+    },
   ],
   "settings": {
     "editor.formatOnSave": true,

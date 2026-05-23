@@ -95,12 +95,21 @@ def _save_raw_bytes(
 def _extract_operations(result: dict) -> list[dict]:
     """Extract operations list from video gen / upscale submit response."""
     data = result.get("data", result)
-    ops = data.get("operations", [])
-    for op in ops:
-        op_name = op.get("operation", {}).get("name")
-        if not op_name:
-            logger.warning("Operation missing name: %s", op)
-    return ops
+    ops = data.get("operations")
+    if isinstance(ops, list) and ops:
+        for op in ops:
+            op_name = op.get("operation", {}).get("name")
+            if not op_name:
+                logger.warning("Operation missing name: %s", op)
+        return ops
+
+    media = data.get("media")
+    if isinstance(media, list) and media:
+        media_id = media[0].get("name")
+        if media_id:
+            return [{"operation": {"name": media_id}, "status": "MEDIA_GENERATION_STATUS_PENDING"}]
+
+    return []
 
 
 async def _poll_operations(

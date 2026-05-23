@@ -65,6 +65,39 @@ def merge_videos(video_paths: list[str], output_path: str) -> bool:
     return True
 
 
+def add_corner_logo(video_path: str, output_path: str, *, logo_path: str,
+                    box_w: int = 100, box_h: int = 60, margin: int = 10) -> bool:
+    if not Path(video_path).exists():
+        logger.error("add_corner_logo: video file not found: %s", video_path)
+        return False
+    if not Path(logo_path).exists():
+        logger.error("add_corner_logo: logo file not found: %s", logo_path)
+        return False
+    if box_w <= 0 or box_h <= 0 or margin < 0:
+        logger.error("add_corner_logo: invalid geometry w=%s h=%s margin=%s", box_w, box_h, margin)
+        return False
+
+    x_expr = f"W-w-{margin}"
+    y_expr = f"H-h-{margin}"
+    filter_v = f"[1:v]scale={box_w}:{box_h}[logo];[0:v][logo]overlay={x_expr}:{y_expr}"
+
+    cmd = [
+        "ffmpeg", "-y",
+        "-i", video_path,
+        "-i", logo_path,
+        "-filter_complex", filter_v,
+        "-c:v", "libx264", "-preset", "fast", "-crf", "18",
+        "-c:a", "copy",
+        "-movflags", "+faststart",
+        output_path,
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
+    if result.returncode != 0:
+        logger.error("add_corner_logo failed: %s", result.stderr[-200:])
+        return False
+    return True
+
+
 def add_narration(video_path: str, narration_path: str, output_path: str,
                   narration_volume: float = 1.0, sfx_volume: float = 0.4,
                   fade_in: float = 0.5, fade_out: float = 0.5) -> bool:
